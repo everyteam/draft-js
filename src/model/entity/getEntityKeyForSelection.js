@@ -11,62 +11,115 @@
  * @flow
  */
 
-'use strict';
+"use strict";
 
-import type ContentState from 'ContentState';
-import type {EntityMap} from 'EntityMap';
-import type SelectionState from 'SelectionState';
-import type {DraftEntitySet} from 'DraftEntitySet';
-import {NONE} from 'DraftEntitySet';
+import type ContentState from "ContentState";
+import type { EntityMap } from "EntityMap";
+import type SelectionState from "SelectionState";
+import type { DraftEntitySet } from "DraftEntitySet";
+import type { DraftMutabilityType } from "DraftMutabilityType";
+import { NONE } from "DraftEntitySet";
 
 /**
  * Return the entity key that should be used when inserting text for the
- * specified target selection, only if the entity is `MUTABLE`. `IMMUTABLE`
- * and `SEGMENTED` entities should not be used for insertion behavior.
+ * specified target selection, only if the entity is `MUTABLE` or potentially `MUTABLE_INTERIOR`.
+ * `IMMUTABLE` and `SEGMENTED` entities should not be used for insertion behavior.
  */
 function getEntityKeyForSelection(
   contentState: ContentState,
-  targetSelection: SelectionState,
+  targetSelection: SelectionState
 ): DraftEntitySet {
-  var entityKey;
+  var blockOffset = targetSelection.getStartOffset();
+
+  var block = contentState.getBlockForKey(targetSelection.getStartKey());
+
+  var keys = NONE;
+
+  var getMutableKeys = true;
 
   if (targetSelection.isCollapsed()) {
-    var key = targetSelection.getAnchorKey();
-    var offset = targetSelection.getAnchorOffset();
-    if (offset > 0) {
-      entityKey = contentState.getBlockForKey(key).getEntityAt(offset - 1);
-      return filterKey(contentState.getEntityMap(), entityKey);
+    if (blockOffset === 0) {
+      block = contentState.getBlockBefore(block.getKey());
+      if (block == null) {
+        return null;
+      }
+      blockOffset = block.getLength();
+      getMutableKeys = false;
     }
-    return null;
+
+    blockOffset = blockOffset - 1;
+  } else {
+    if (blockOffset === block.getLength()) {
+      getMutableKeys = false;
+    }
   }
 
-  var startKey = targetSelection.getStartKey();
-  var startOffset = targetSelection.getStartOffset();
-  var startBlock = contentState.getBlockForKey(startKey);
+  if (getMutableKeys) {
+    keys = keys.union(
+      filterKeys(
+        contentState.getEntityMap(),
+        block.getEntityAt(blockOffset),
+        "MUTABLE"
+      )
+    );
+  }
 
-  entityKey =
-    startOffset === startBlock.getLength()
-      ? null
-      : startBlock.getEntityAt(startOffset);
+  // now find potential MUTABLE_INTERIOR keys.
+  var mutableInteriorKeys = filterKeys(
+    contentState.getEntityMap(),
+    block.getEntityAt(blockOffset),
+    "MUTABLE_INTERIOR"
+  );
 
-  return filterKey(contentState.getEntityMap(), entityKey);
+  if (mutableInteriorKeys.size > 0) {
+    blockOffset = blockOffset + 1;
+    if (blockOffset >= block.getLength()) {
+      block = contentState.getBlockAfter(block.getKey());
+      blockOffset = 0;
+    }
+
+    if (block != null) {
+      var nextOffsetEntityKeys = block.getEntityAt(blockOffset);
+      var nextOffsetMutableInteriorKeys = filterKeys(
+        contentState.getEntityMap(),
+        nextOffsetEntityKeys,
+        "MUTABLE_INTERIOR"
+      );
+
+      mutableInteriorKeys = nextOffsetMutableInteriorKeys.intersect(
+        mutableInteriorKeys
+      );
+
+      keys = keys.union(mutableInteriorKeys);
+    }
+  }
+
+  if (keys.size > 0) {
+    return keys;
+  }
+
+  return null;
 }
 
 /**
- * Determine whether any entity keys correspond to a `MUTABLE` entity. If so,
- * return them. If not, return an empty set.
+ * Determine whether any entity keys correspond to a specific mutability type.
  */
-function filterKey(
+function filterKeys(
   entityMap: EntityMap,
   entityKeys: DraftEntitySet,
+  mutabilityType: DraftMutabilityType
 ): DraftEntitySet {
   if (entityKeys && entityKeys.size > 0) {
-    return entityKeys
+    var filteredKeys = entityKeys
       .map(key => {
         var entity = entityMap.get(key);
-        return entity.getMutability() === 'MUTABLE' ? key : null;
+        return entity.getMutability() === mutabilityType ? key : null;
       })
       .filter(x => x);
+
+    if (filteredKeys.size > 0) {
+      return filteredKeys;
+    }
   }
   return NONE;
 }

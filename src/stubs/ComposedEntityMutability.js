@@ -14,6 +14,7 @@
 
 var ComposedEntityMutability = {
   'MUTABLE': true,
+  'MUTABLE_INTERIOR': true,
   'IMMUTABLE': true,
   'SEGMENTED': true,
 };

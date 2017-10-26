@@ -91,7 +91,7 @@ describe('RichTextEditorUtil', () => {
       const afterBackspace = onBackspace(withAtomicBlock);
       const contentState = afterBackspace.getCurrentContent();
       const blockMap = contentState.getBlockMap();
-      expect(blockMap.size).toBe(4);
+      expect(blockMap.size).toBe(5);
       expect(
         blockMap.some((block) => block.getType() === 'atomic'),
       ).toBe(
@@ -150,7 +150,7 @@ describe('RichTextEditorUtil', () => {
         false,
       );
 
-      expect(blockMapAfterDelete.size).toBe(4);
+      expect(blockMapAfterDelete.size).toBe(5);
     });
   });
 });

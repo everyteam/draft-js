@@ -537,7 +537,7 @@ describe('AtomicBlockUtils', () => {
       const resultContent = resultEditor.getCurrentContent();
 
       const atomicBlock = resultContent.getBlockMap().skip(1).first();
-      const lastBlock = resultContent.getBlockMap().last();
+      const lastBlock = resultContent.getBlockMap().reverse().skip(1).first();
 
       assertAtomicBlock(atomicBlock);
 
@@ -560,9 +560,9 @@ describe('AtomicBlockUtils', () => {
       const atomicResultSecondLastBlock = atomicResultContent
         .getBlockMap()
         .reverse()
-        .skip(1)
+        .skip(2)
         .first();
-      const atomicResultLastBlock = atomicResultContent.getBlockMap().last();
+      const atomicResultLastBlock = atomicResultContent.getBlockMap().reverse().skip(1).first();
 
       assertAtomicBlock(atomicResultSecondLastBlock);
       expect(atomicResultLastBlock.getText()).toBe('arlie');
@@ -574,7 +574,7 @@ describe('AtomicBlockUtils', () => {
       const resultContent = resultEditor.getCurrentContent();
 
       const atomicBlock = resultContent.getBlockMap().skip(1).first();
-      const lastBlock = resultContent.getBlockMap().last();
+      const lastBlock = resultContent.getBlockMap().reverse().skip(1).first();
 
       assertAtomicBlock(atomicBlock);
 
@@ -597,9 +597,9 @@ describe('AtomicBlockUtils', () => {
       const atomicResultSecondLastBlock = atomicResultContent
         .getBlockMap()
         .reverse()
-        .skip(1)
+        .skip(2)
         .first();
-      const atomicResultLastBlock = atomicResultContent.getBlockMap().last();
+      const atomicResultLastBlock = atomicResultContent.getBlockMap().reverse().skip(1).first();
 
       expect(atomicResultSecondLastBlock.getText()).toBe('Charl');
       assertAtomicBlock(atomicResultLastBlock);

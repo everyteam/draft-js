@@ -53,7 +53,7 @@ describe('splitBlockInContentState', () => {
     var initialBlock = contentState.getBlockMap().first();
     var afterSplit = splitBlockInContentState(contentState, selectionState);
     var afterBlockMap = afterSplit.getBlockMap();
-    expect(afterBlockMap.size).toBe(4);
+    expect(afterBlockMap.size).toBe(5);
 
     var preSplitBlock = afterBlockMap.first();
 
@@ -94,7 +94,7 @@ describe('splitBlockInContentState', () => {
 
     var afterSplit = splitBlockInContentState(contentState, selection);
     var afterBlockMap = afterSplit.getBlockMap();
-    expect(afterBlockMap.size).toBe(4);
+    expect(afterBlockMap.size).toBe(5);
 
     var preSplitBlock = afterBlockMap.first();
     var postSplitBlock = afterBlockMap.skip(1).first();
@@ -139,7 +139,7 @@ describe('splitBlockInContentState', () => {
 
     var afterSplit = splitBlockInContentState(contentState, selection);
     var afterBlockMap = afterSplit.getBlockMap();
-    expect(afterBlockMap.size).toBe(4);
+    expect(afterBlockMap.size).toBe(5);
 
     var preSplitBlock = afterBlockMap.first();
     var postSplitBlock = afterBlockMap.skip(1).first();
