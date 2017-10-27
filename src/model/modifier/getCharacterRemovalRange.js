@@ -11,18 +11,18 @@
  * @flow
  */
 
-'use strict';
+"use strict";
 
-import type ContentBlock from 'ContentBlock';
-import type {DraftRemovalDirection} from 'DraftRemovalDirection';
-import type {EntityMap} from 'EntityMap';
-import type SelectionState from 'SelectionState';
-import type {DraftEntitySet} from 'DraftEntitySet';
+import type ContentBlock from "ContentBlock";
+import type { DraftRemovalDirection } from "DraftRemovalDirection";
+import type { EntityMap } from "EntityMap";
+import type SelectionState from "SelectionState";
+import type { DraftEntitySet } from "DraftEntitySet";
 
-var DraftEntitySegments = require('DraftEntitySegments');
+var DraftEntitySegments = require("DraftEntitySegments");
 
-var getRangesForDraftEntity = require('getRangesForDraftEntity');
-var invariant = require('invariant');
+var getRangesForDraftEntity = require("getRangesForDraftEntity");
+var invariant = require("invariant");
 
 /**
  * Given a SelectionState and a removal direction, determine the entire range
@@ -38,7 +38,7 @@ function getCharacterRemovalRange(
   startBlock: ContentBlock,
   endBlock: ContentBlock,
   selectionState: SelectionState,
-  direction: DraftRemovalDirection,
+  direction: DraftRemovalDirection
 ): SelectionState {
   var start = selectionState.getStartOffset();
   var end = selectionState.getEndOffset();
@@ -56,7 +56,7 @@ function getCharacterRemovalRange(
       direction,
       startEntities,
       true,
-      true,
+      true
     );
   } else if (startEntities.size > 0 && endEntities.size > 0) {
     const startSelectionState = getEntityRemovalRange(
@@ -66,7 +66,7 @@ function getCharacterRemovalRange(
       direction,
       startEntities,
       false,
-      true,
+      true
     );
     const endSelectionState = getEntityRemovalRange(
       entityMap,
@@ -75,12 +75,12 @@ function getCharacterRemovalRange(
       direction,
       endEntities,
       false,
-      false,
+      false
     );
     newSelectionState = newSelectionState.merge({
       anchorOffset: startSelectionState.getAnchorOffset(),
       focusOffset: endSelectionState.getFocusOffset(),
-      isBackward: false,
+      isBackward: false
     });
   } else if (startEntities.size > 0) {
     const startSelectionState = getEntityRemovalRange(
@@ -90,11 +90,11 @@ function getCharacterRemovalRange(
       direction,
       startEntities,
       false,
-      true,
+      true
     );
     newSelectionState = newSelectionState.merge({
       anchorOffset: startSelectionState.getStartOffset(),
-      isBackward: false,
+      isBackward: false
     });
   } else if (endEntities.size > 0) {
     const endSelectionState = getEntityRemovalRange(
@@ -104,11 +104,11 @@ function getCharacterRemovalRange(
       direction,
       endEntities,
       false,
-      false,
+      false
     );
     newSelectionState = newSelectionState.merge({
       focusOffset: endSelectionState.getEndOffset(),
-      isBackward: false,
+      isBackward: false
     });
   }
   return newSelectionState;
@@ -121,7 +121,7 @@ function getEntityRemovalRange(
   direction: DraftRemovalDirection,
   entities: DraftEntitySet,
   isEntireSelectionWithinEntity: boolean,
-  isEntityAtStart: boolean,
+  isEntityAtStart: boolean
 ): SelectionState {
   var start = selectionState.getStartOffset();
   var end = selectionState.getEndOffset();
@@ -132,7 +132,7 @@ function getEntityRemovalRange(
 
     // `MUTABLE` entities can just have the specified range of text removed
     // directly. No adjustments are needed.
-    if (mutability === 'MUTABLE') {
+    if (mutability === "MUTABLE" || mutability === "MUTABLE_INTERIOR") {
       return;
     }
 
@@ -140,25 +140,25 @@ function getEntityRemovalRange(
 
     // Find the entity range that overlaps with our removal range.
     var entityRanges = getRangesForDraftEntity(block, entityKey).filter(
-      range => sideToConsider <= range.end && sideToConsider >= range.start,
+      range => sideToConsider <= range.end && sideToConsider >= range.start
     );
 
     invariant(
       entityRanges.length == 1,
-      'There should only be one entity range within this removal range.',
+      "There should only be one entity range within this removal range."
     );
 
     var entityRange = entityRanges[0];
 
     // For `IMMUTABLE` entity types, we will remove the entire entity range.
-    if (mutability === 'IMMUTABLE') {
+    if (mutability === "IMMUTABLE") {
       selectionState = selectionState.merge({
         anchorOffset: Math.min(
           selectionState.getAnchorOffset(),
-          entityRange.start,
+          entityRange.start
         ),
         focusOffset: Math.max(selectionState.getFocusOffset(), entityRange.end),
-        isBackward: false,
+        isBackward: false
       });
       return;
     }
@@ -178,16 +178,16 @@ function getEntityRemovalRange(
       end,
       block.getText().slice(entityRange.start, entityRange.end),
       entityRange.start,
-      direction,
+      direction
     );
 
     selectionState = selectionState.merge({
       anchorOffset: Math.min(
         selectionState.getAnchorOffset(),
-        removalRange.start,
+        removalRange.start
       ),
       focusOffset: Math.max(selectionState.getFocusOffset(), removalRange.end),
-      isBackward: false,
+      isBackward: false
     });
   });
 
