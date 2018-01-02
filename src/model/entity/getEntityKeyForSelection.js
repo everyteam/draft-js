@@ -17,7 +17,7 @@ import type ContentState from 'ContentState';
 import type {EntityMap} from 'EntityMap';
 import type SelectionState from 'SelectionState';
 import type {DraftEntitySet} from 'DraftEntitySet';
-import type {DraftMutabilityType} from 'DraftMutabilityType';
+import type {DraftEntityMutability} from 'DraftEntityMutability';
 import {NONE} from 'DraftEntitySet';
 
 /**
@@ -113,7 +113,7 @@ function getEntityKeyForSelection(
 function filterKeys(
   entityMap: EntityMap,
   entityKeys: DraftEntitySet,
-  mutabilityType: DraftMutabilityType,
+  mutabilityType: DraftEntityMutability,
 ): DraftEntitySet {
   if (entityKeys && entityKeys.size > 0) {
     var filteredKeys = entityKeys
