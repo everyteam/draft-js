@@ -7,89 +7,102 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @providesModule getSampleStateForTesting
- * @typechecks
+ * @format
  * @flow
  */
 
-"use strict";
+'use strict';
 
-var BlockMapBuilder = require("BlockMapBuilder");
-var CharacterMetadata = require("CharacterMetadata");
-var ContentBlock = require("ContentBlock");
-var ContentState = require("ContentState");
-var EditorState = require("EditorState");
-var Immutable = require("immutable");
-var SampleDraftInlineStyle = require("SampleDraftInlineStyle");
-var SelectionState = require("SelectionState");
+const BlockMapBuilder = require('BlockMapBuilder');
+const CharacterMetadata = require('CharacterMetadata');
+const ContentBlock = require('ContentBlock');
+const ContentState = require('ContentState');
+const EditorState = require('EditorState');
+const DraftEntityInstance = require('DraftEntityInstance');
+const Immutable = require('immutable');
+const SampleDraftInlineStyle = require('SampleDraftInlineStyle');
+const SelectionState = require('SelectionState');
 
-var { BOLD, ITALIC, NONE } = SampleDraftInlineStyle;
-var ENTITY_KEY = Immutable.OrderedSet.of("123");
+var {BOLD, ITALIC, NONE} = SampleDraftInlineStyle;
+var ENTITY_KEY = Immutable.OrderedSet.of('123');
 
-var BLOCKS = [
+const BLOCKS = [
   new ContentBlock({
-    key: "a",
-    type: "unstyled",
-    text: "Alpha",
-    characterList: Immutable.List(Immutable.Repeat(CharacterMetadata.EMPTY, 5))
+    key: 'a',
+    type: 'unstyled',
+    text: 'Alpha',
+    characterList: Immutable.List(Immutable.Repeat(CharacterMetadata.EMPTY, 5)),
   }),
   new ContentBlock({
-    key: "b",
-    type: "unordered-list-item",
-    text: "Bravo",
+    key: 'b',
+    type: 'unordered-list-item',
+    text: 'Bravo',
     characterList: Immutable.List(
       Immutable.Repeat(
-        CharacterMetadata.create({ style: BOLD, entity: ENTITY_KEY }),
-        5
-      )
-    )
+        CharacterMetadata.create({style: BOLD, entity: ENTITY_KEY}),
+        5,
+      ),
+    ),
   }),
   new ContentBlock({
-    key: "c",
-    type: "blockquote",
-    text: "Charlie",
+    key: 'c',
+    type: 'code-block',
+    text: 'Test',
+    characterList: Immutable.List(Immutable.Repeat(CharacterMetadata.EMPTY, 4)),
+  }),
+  new ContentBlock({
+    key: 'd',
+    type: 'code-block',
+    text: '',
+    characterList: Immutable.List(),
+  }),
+  new ContentBlock({
+    key: 'e',
+    type: 'code-block',
+    text: '',
+    characterList: Immutable.List(),
+  }),
+  new ContentBlock({
+    key: 'f',
+    type: 'blockquote',
+    text: 'Charlie',
     characterList: Immutable.List(
       Immutable.Repeat(
-        CharacterMetadata.create({ style: ITALIC, entity: NONE }),
-        7
-      )
-    )
+        CharacterMetadata.create({style: ITALIC, entity: NONE}),
+        7,
+      ),
+    ),
   }),
-  new ContentBlock({
-    key: "d",
-    type: "blockquote",
-    text: "Delta",
-    characterList: Immutable.List([
-      CharacterMetadata.create({ style: ITALIC, entity: NONE }),
-      CharacterMetadata.create({ style: ITALIC, entity: ENTITY_KEY }),
-      CharacterMetadata.create({ style: ITALIC, entity: ENTITY_KEY }),
-      CharacterMetadata.create({ style: ITALIC, entity: ENTITY_KEY }),
-      CharacterMetadata.create({ style: ITALIC, entity: NONE })
-    ])
-  })
 ];
 
-var selectionState = new SelectionState({
-  anchorKey: "a",
+const selectionState = new SelectionState({
+  anchorKey: 'a',
   anchorOffset: 0,
-  focusKey: "a",
+  focusKey: 'a',
   focusOffset: 0,
   isBackward: false,
-  hasFocus: true
+  hasFocus: true,
 });
 
-var blockMap = BlockMapBuilder.createFromArray(BLOCKS);
-var contentState = new ContentState({
+const blockMap = BlockMapBuilder.createFromArray(BLOCKS);
+const contentState = new ContentState({
   blockMap,
-  entityMap: Immutable.OrderedMap(),
+  entityMap: Immutable.OrderedMap({
+    '123': new DraftEntityInstance({
+      type: 'IMAGE',
+      mutability: 'IMMUTABLE',
+      data: {},
+    }),
+  }),
   selectionBefore: selectionState,
-  selectionAfter: selectionState
+  selectionAfter: selectionState,
 });
 
-var editorState = EditorState.createWithContent(contentState);
+let editorState = EditorState.createWithContent(contentState);
 editorState = EditorState.forceSelection(editorState, selectionState);
 
-function getSampleStateForTesting(): Object {
-  return { editorState, contentState, selectionState };
-}
+const getSampleStateForTesting = (): Object => {
+  return {editorState, contentState, selectionState};
+};
 
 module.exports = getSampleStateForTesting;

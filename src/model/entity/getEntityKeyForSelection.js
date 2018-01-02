@@ -7,18 +7,18 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @providesModule getEntityKeyForSelection
- * @typechecks
+ * @format
  * @flow
  */
 
-"use strict";
+'use strict';
 
-import type ContentState from "ContentState";
-import type { EntityMap } from "EntityMap";
-import type SelectionState from "SelectionState";
-import type { DraftEntitySet } from "DraftEntitySet";
-import type { DraftMutabilityType } from "DraftMutabilityType";
-import { NONE } from "DraftEntitySet";
+import type ContentState from 'ContentState';
+import type {EntityMap} from 'EntityMap';
+import type SelectionState from 'SelectionState';
+import type {DraftEntitySet} from 'DraftEntitySet';
+import type {DraftMutabilityType} from 'DraftMutabilityType';
+import {NONE} from 'DraftEntitySet';
 
 /**
  * Return the entity key that should be used when inserting text for the
@@ -27,7 +27,7 @@ import { NONE } from "DraftEntitySet";
  */
 function getEntityKeyForSelection(
   contentState: ContentState,
-  targetSelection: SelectionState
+  targetSelection: SelectionState,
 ): DraftEntitySet {
   var blockOffset = targetSelection.getStartOffset();
 
@@ -55,20 +55,26 @@ function getEntityKeyForSelection(
   }
 
   if (getMutableKeys) {
-    keys = keys.union(
-      filterKeys(
-        contentState.getEntityMap(),
-        block.getEntityAt(blockOffset),
-        "MUTABLE"
-      )
+    const offsetKeys = filterKeys(
+      contentState.getEntityMap(),
+      block.getEntityAt(blockOffset),
+      'MUTABLE',
     );
+
+    const nextOffsetKeys = filterKeys(
+      contentState.getEntityMap(),
+      block.getEntityAt(blockOffset + 1),
+      'MUTABLE',
+    );
+
+    keys = keys.union(offsetKeys.intersect(nextOffsetKeys));
   }
 
   // now find potential MUTABLE_INTERIOR keys.
   var mutableInteriorKeys = filterKeys(
     contentState.getEntityMap(),
     block.getEntityAt(blockOffset),
-    "MUTABLE_INTERIOR"
+    'MUTABLE_INTERIOR',
   );
 
   if (mutableInteriorKeys.size > 0) {
@@ -83,11 +89,11 @@ function getEntityKeyForSelection(
       var nextOffsetMutableInteriorKeys = filterKeys(
         contentState.getEntityMap(),
         nextOffsetEntityKeys,
-        "MUTABLE_INTERIOR"
+        'MUTABLE_INTERIOR',
       );
 
       mutableInteriorKeys = nextOffsetMutableInteriorKeys.intersect(
-        mutableInteriorKeys
+        mutableInteriorKeys,
       );
 
       keys = keys.union(mutableInteriorKeys);
@@ -107,7 +113,7 @@ function getEntityKeyForSelection(
 function filterKeys(
   entityMap: EntityMap,
   entityKeys: DraftEntitySet,
-  mutabilityType: DraftMutabilityType
+  mutabilityType: DraftMutabilityType,
 ): DraftEntitySet {
   if (entityKeys && entityKeys.size > 0) {
     var filteredKeys = entityKeys
