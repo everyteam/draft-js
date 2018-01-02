@@ -159,7 +159,7 @@ var DraftEditorCompositionHandler = {
       !composedChars ||
       isSelectionAtLeafStart(editorState) ||
       currentStyle.size > 0 ||
-      entityKey.size > 0;
+      (entityKey != null && entityKey.size > 0);
 
     if (mustReset) {
       editor.restoreEditorDOM();
