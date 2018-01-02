@@ -7,25 +7,26 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @providesModule removeEntitiesAtEdges
+ * @format
  * @flow
  */
 
-"use strict";
+'use strict';
 
-import type ContentBlock from "ContentBlock";
-import type ContentState from "ContentState";
-import type { EntityMap } from "EntityMap";
-import type SelectionState from "SelectionState";
-import type { List } from "immutable";
+import type {BlockNodeRecord} from 'BlockNodeRecord';
+import type ContentState from 'ContentState';
+import type {EntityMap} from 'EntityMap';
+import type SelectionState from 'SelectionState';
+import type {List} from 'immutable';
 
-var CharacterMetadata = require("CharacterMetadata");
+var CharacterMetadata = require('CharacterMetadata');
 
-var findRangesImmutable = require("findRangesImmutable");
-var invariant = require("invariant");
+var findRangesImmutable = require('findRangesImmutable');
+var invariant = require('invariant');
 
 function removeEntitiesAtEdges(
   contentState: ContentState,
-  selectionState: SelectionState
+  selectionState: SelectionState,
 ): ContentState {
   var blockMap = contentState.getBlockMap();
   var entityMap = contentState.getEntityMap();
@@ -55,19 +56,19 @@ function removeEntitiesAtEdges(
   }
 
   if (!Object.keys(updatedBlocks).length) {
-    return contentState.set("selectionAfter", selectionState);
+    return contentState.set('selectionAfter', selectionState);
   }
 
   return contentState.merge({
     blockMap: blockMap.merge(updatedBlocks),
-    selectionAfter: selectionState
+    selectionAfter: selectionState,
   });
 }
 
 function getRemovalRange(
   characters: List<CharacterMetadata>,
   key: string,
-  offset: number
+  offset: number,
 ): Object {
   var removalRange;
   findRangesImmutable(
@@ -76,22 +77,22 @@ function getRemovalRange(
     element => element.getEntity().has(key),
     (start, end) => {
       if (start <= offset && end >= offset) {
-        removalRange = { start, end };
+        removalRange = {start, end};
       }
-    }
+    },
   );
   invariant(
-    typeof removalRange === "object",
-    "Removal range must exist within character list."
+    typeof removalRange === 'object',
+    'Removal range must exist within character list.',
   );
   return removalRange;
 }
 
 function removeForBlock(
   entityMap: EntityMap,
-  block: ContentBlock,
-  offset: number
-): ContentBlock {
+  block: BlockNodeRecord,
+  offset: number,
+): BlockNodeRecord {
   var chars = block.getCharacterList();
   var charBefore = offset > 0 ? chars.get(offset - 1) : undefined;
   var charAfter = offset < chars.count() ? chars.get(offset) : undefined;
@@ -104,21 +105,21 @@ function removeForBlock(
         var entity = entityMap.get(entityKey);
         if (
           !(
-            entity.getMutability() === "MUTABLE" ||
-            entity.getMutability() === "MUTABLE_INTERIOR"
+            entity.getMutability() === 'MUTABLE' ||
+            entity.getMutability() === 'MUTABLE_INTERIOR'
           )
         ) {
-          var { start, end } = getRemovalRange(chars, entityKey, offset);
+          var {start, end} = getRemovalRange(chars, entityKey, offset);
           var current;
           while (start < end) {
             current = chars.get(start);
             chars = chars.set(
               start,
-              CharacterMetadata.removeEntity(current, entityKey)
+              CharacterMetadata.removeEntity(current, entityKey),
             );
             start++;
           }
-          block = block.set("characterList", chars);
+          block = block.set('characterList', chars);
         }
       }
     });
