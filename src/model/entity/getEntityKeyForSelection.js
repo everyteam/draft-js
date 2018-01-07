@@ -28,7 +28,7 @@ import {NONE} from 'DraftEntitySet';
 function getEntityKeyForSelection(
   contentState: ContentState,
   targetSelection: SelectionState,
-): ?DraftEntitySet {
+): DraftEntitySet {
   var blockOffset = targetSelection.getStartOffset();
 
   var block = contentState.getBlockForKey(targetSelection.getStartKey());
