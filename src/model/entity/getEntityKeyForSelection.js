@@ -28,7 +28,7 @@ import {NONE} from 'DraftEntitySet';
 function getEntityKeyForSelection(
   contentState: ContentState,
   targetSelection: SelectionState,
-): ?DraftEntitySet {
+): DraftEntitySet {
   var blockOffset = targetSelection.getStartOffset();
 
   var block = contentState.getBlockForKey(targetSelection.getStartKey());
@@ -41,7 +41,7 @@ function getEntityKeyForSelection(
     if (blockOffset === 0) {
       block = contentState.getBlockBefore(block.getKey());
       if (block == null) {
-        return null;
+        return NONE;
       }
       blockOffset = block.getLength();
       getMutableKeys = false;
@@ -100,11 +100,7 @@ function getEntityKeyForSelection(
     }
   }
 
-  if (keys.size > 0) {
-    return keys;
-  }
-
-  return null;
+  return keys;
 }
 
 /**
