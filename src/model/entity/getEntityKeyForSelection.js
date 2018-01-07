@@ -41,7 +41,7 @@ function getEntityKeyForSelection(
     if (blockOffset === 0) {
       block = contentState.getBlockBefore(block.getKey());
       if (block == null) {
-        return null;
+        return NONE;
       }
       blockOffset = block.getLength();
       getMutableKeys = false;
@@ -100,11 +100,7 @@ function getEntityKeyForSelection(
     }
   }
 
-  if (keys.size > 0) {
-    return keys;
-  }
-
-  return null;
+  return keys;
 }
 
 /**
