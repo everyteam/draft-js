@@ -97,7 +97,7 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
     ],
@@ -207,7 +207,7 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
     ],
@@ -346,11 +346,11 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
     ],
@@ -426,11 +426,11 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
@@ -491,7 +491,7 @@ Array [
   Object {
     "characterList": Array [
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
     ],
@@ -571,11 +571,11 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
     ],
@@ -817,11 +817,11 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
     ],
@@ -863,7 +863,7 @@ Array [
         ],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
@@ -891,11 +891,11 @@ Array [
         ],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
     ],
@@ -1166,7 +1166,7 @@ Array [
   Object {
     "characterList": Array [
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
@@ -1527,7 +1527,7 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
     ],
@@ -1566,7 +1566,19 @@ Array [
   Object {
     "characterList": Array [
       Object {
-        "entity": null,
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
         "style": Array [],
       },
       Object {
@@ -1586,19 +1598,7 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
-        "style": Array [],
-      },
-      Object {
-        "entity": null,
-        "style": Array [],
-      },
-      Object {
-        "entity": null,
-        "style": Array [],
-      },
-      Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
@@ -1606,11 +1606,11 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
     ],
@@ -1749,7 +1749,7 @@ Array [
         ],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
@@ -2328,7 +2328,7 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
@@ -2562,7 +2562,7 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
       Object {
@@ -2711,7 +2711,7 @@ Array [
         "style": Array [],
       },
       Object {
-        "entity": null,
+        "entity": Array [],
         "style": Array [],
       },
     ],

@@ -284,16 +284,12 @@ const hasValidLinkText = (link: Node): boolean => {
   );
 };
 
-const getWhitespaceChunk = (inEntity: ?string): Chunk => {
-  const entities = new Array(1);
-  if (inEntity) {
-    entities[0] = inEntity;
-  }
+const getWhitespaceChunk = (inEntity: DraftEntitySet): Chunk => {
   return {
     ...EMPTY_CHUNK,
     text: SPACE,
     inlines: [OrderedSet()],
-    entities,
+    entities: [inEntity],
   };
 };
 
@@ -302,7 +298,7 @@ const getSoftNewlineChunk = (): Chunk => {
     ...EMPTY_CHUNK,
     text: '\n',
     inlines: [OrderedSet()],
-    entities: new Array(1),
+    entities: [OrderedSet()],
   };
 };
 
@@ -321,7 +317,7 @@ const getBlockDividerChunk = (
   return {
     text: '\r',
     inlines: [OrderedSet()],
-    entities: new Array(1),
+    entities: [OrderedSet()],
     blocks: [
       getChunkedBlock({
         parent: parentKey,
@@ -342,7 +338,7 @@ const genFragment = (
   blockTags: Array<string>,
   depth: number,
   blockRenderMap: DraftBlockRenderMap,
-  inEntity?: DraftEntitySet,
+  inEntity: DraftEntitySet,
   parentKey?: ?string,
 ): {chunk: Chunk, entityMap: EntityMap} => {
   const lastLastBlock = lastBlock;
@@ -385,7 +381,7 @@ const genFragment = (
       chunk: {
         text,
         inlines: Array(text.length).fill(inlineStyle),
-        entities: Array(text.length).fill(inEntity || OrderedSet()),
+        entities: Array(text.length).fill(inEntity),
         blocks: [],
       },
       entityMap,
@@ -591,6 +587,7 @@ const getChunkForHTML = (
     workingBlocks,
     -1,
     blockRenderMap,
+    OrderedSet(),
   );
 
   let chunk = fragment.chunk;
