@@ -28,10 +28,10 @@ var isTruthy = a => !!a;
 var EMPTY_ARRAY = [];
 
 /**
- * Helper function for getting encoded styles for each entity. Convert
+ * Helper function for getting encoded entities for each entity. Convert
  * to UTF-8 character counts for storage.
  */
-function getEncodedInlinesForType(
+function getEncodedEntitiesForKey(
   block: ContentBlock,
   entities: List<DraftEntitySet>,
   entityKey: string,
@@ -68,10 +68,11 @@ function encodeEntityRanges(block: ContentBlock): Array<EntityRange> {
     .getCharacterList()
     .map(c => c.getEntity())
     .toList();
+
   var ranges = entities
     .flatten()
     .toSet()
-    .map(style => getEncodedInlinesForType(block, entities, style));
+    .map(key => getEncodedEntitiesForKey(block, entities, key));
 
   return Array.prototype.concat.apply(EMPTY_ARRAY, ranges.toJS());
 }
