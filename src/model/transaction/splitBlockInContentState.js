@@ -88,6 +88,16 @@ const updateBlockMapLinks = (
   });
 };
 
+const blockTypesToClean = [
+  'header-one',
+  'header-two',
+  'header-three',
+  'header-four',
+  'header-five',
+  'header-six',
+  'code-block',
+];
+
 const splitBlockInContentState = (
   contentState: ContentState,
   selectionState: SelectionState,
@@ -103,12 +113,26 @@ const splitBlockInContentState = (
   const keyBelow = generateRandomKey();
   const isExperimentalTreeBlock = blockToSplit instanceof ContentBlockNode;
 
+  let blockAboveType = blockToSplit.getType();
+  let blockBelowType = blockToSplit.getType();
+
+  if (blockTypesToClean.includes(blockToSplit.getType())) {
+    if (offset === 0) {
+      blockAboveType = 'unstyled';
+    } else {
+      blockBelowType = 'unstyled';
+    }
+  }
+
   const blockAbove = blockToSplit.merge({
+    type: blockAboveType,
     text: text.slice(0, offset),
     characterList: chars.slice(0, offset),
   });
+
   const blockBelow = blockAbove.merge({
     key: keyBelow,
+    type: blockBelowType,
     text: text.slice(offset),
     characterList: chars.slice(offset),
     data: Map(),

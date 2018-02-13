@@ -1,5 +1,372 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`must respect header split rules (0 offset moves header down, >0 offset makes 2nd block unstyled 1`] = `
+Array [
+  Object {
+    "characterList": Array [],
+    "data": Object {},
+    "depth": 0,
+    "key": "a",
+    "text": "",
+    "type": "unstyled",
+  },
+  Object {
+    "characterList": Array [
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+    ],
+    "data": Object {},
+    "depth": 0,
+    "key": "key4",
+    "text": "Alpha",
+    "type": "header-one",
+  },
+  Object {
+    "characterList": Array [
+      Object {
+        "entity": Array [
+          "123",
+        ],
+        "style": Array [
+          "BOLD",
+        ],
+      },
+      Object {
+        "entity": Array [
+          "123",
+        ],
+        "style": Array [
+          "BOLD",
+        ],
+      },
+      Object {
+        "entity": Array [
+          "123",
+        ],
+        "style": Array [
+          "BOLD",
+        ],
+      },
+      Object {
+        "entity": Array [
+          "123",
+        ],
+        "style": Array [
+          "BOLD",
+        ],
+      },
+      Object {
+        "entity": Array [
+          "123",
+        ],
+        "style": Array [
+          "BOLD",
+        ],
+      },
+    ],
+    "data": Object {},
+    "depth": 0,
+    "key": "b",
+    "text": "Bravo",
+    "type": "unordered-list-item",
+  },
+  Object {
+    "characterList": Array [
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+    ],
+    "data": Object {},
+    "depth": 0,
+    "key": "c",
+    "text": "Test",
+    "type": "code-block",
+  },
+  Object {
+    "characterList": Array [],
+    "data": Object {},
+    "depth": 0,
+    "key": "d",
+    "text": "",
+    "type": "code-block",
+  },
+  Object {
+    "characterList": Array [],
+    "data": Object {},
+    "depth": 0,
+    "key": "e",
+    "text": "",
+    "type": "code-block",
+  },
+  Object {
+    "characterList": Array [
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+    ],
+    "data": Object {},
+    "depth": 0,
+    "key": "f",
+    "text": "Charlie",
+    "type": "blockquote",
+  },
+]
+`;
+
+exports[`must respect header split rules (0 offset moves header down, >0 offset makes 2nd block unstyled 2`] = `
+Array [
+  Object {
+    "characterList": Array [
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+    ],
+    "data": Object {},
+    "depth": 0,
+    "key": "a",
+    "text": "Al",
+    "type": "header-one",
+  },
+  Object {
+    "characterList": Array [
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+    ],
+    "data": Object {},
+    "depth": 0,
+    "key": "key5",
+    "text": "pha",
+    "type": "unstyled",
+  },
+  Object {
+    "characterList": Array [
+      Object {
+        "entity": Array [
+          "123",
+        ],
+        "style": Array [
+          "BOLD",
+        ],
+      },
+      Object {
+        "entity": Array [
+          "123",
+        ],
+        "style": Array [
+          "BOLD",
+        ],
+      },
+      Object {
+        "entity": Array [
+          "123",
+        ],
+        "style": Array [
+          "BOLD",
+        ],
+      },
+      Object {
+        "entity": Array [
+          "123",
+        ],
+        "style": Array [
+          "BOLD",
+        ],
+      },
+      Object {
+        "entity": Array [
+          "123",
+        ],
+        "style": Array [
+          "BOLD",
+        ],
+      },
+    ],
+    "data": Object {},
+    "depth": 0,
+    "key": "b",
+    "text": "Bravo",
+    "type": "unordered-list-item",
+  },
+  Object {
+    "characterList": Array [
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [],
+      },
+    ],
+    "data": Object {},
+    "depth": 0,
+    "key": "c",
+    "text": "Test",
+    "type": "code-block",
+  },
+  Object {
+    "characterList": Array [],
+    "data": Object {},
+    "depth": 0,
+    "key": "d",
+    "text": "",
+    "type": "code-block",
+  },
+  Object {
+    "characterList": Array [],
+    "data": Object {},
+    "depth": 0,
+    "key": "e",
+    "text": "",
+    "type": "code-block",
+  },
+  Object {
+    "characterList": Array [
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+      Object {
+        "entity": Array [],
+        "style": Array [
+          "ITALIC",
+        ],
+      },
+    ],
+    "data": Object {},
+    "depth": 0,
+    "key": "f",
+    "text": "Charlie",
+    "type": "blockquote",
+  },
+]
+`;
+
 exports[`must split at the beginning of a block 1`] = `
 Array [
   Object {
@@ -237,7 +604,7 @@ Array [
     "characterList": Array [],
     "children": Array [
       "D",
-      "key7",
+      "key9",
       "E",
     ],
     "data": Object {},
@@ -255,7 +622,7 @@ Array [
     "data": Object {},
     "depth": 0,
     "key": "D",
-    "nextSibling": "key7",
+    "nextSibling": "key9",
     "parent": "C",
     "prevSibling": null,
     "text": "",
@@ -287,7 +654,7 @@ Array [
     "children": Array [],
     "data": Object {},
     "depth": 0,
-    "key": "key7",
+    "key": "key9",
     "nextSibling": "E",
     "parent": "C",
     "prevSibling": "D",
@@ -335,7 +702,7 @@ Array [
     "key": "E",
     "nextSibling": null,
     "parent": "C",
-    "prevSibling": "key7",
+    "prevSibling": "key9",
     "text": "Elephant",
     "type": "unstyled",
   },
@@ -416,7 +783,7 @@ Array [
     "data": Object {},
     "depth": 0,
     "key": "A",
-    "nextSibling": "key6",
+    "nextSibling": "key8",
     "parent": null,
     "prevSibling": null,
     "text": "",
@@ -448,7 +815,7 @@ Array [
     "children": Array [],
     "data": Object {},
     "depth": 0,
-    "key": "key6",
+    "key": "key8",
     "nextSibling": "B",
     "parent": null,
     "prevSibling": "A",
@@ -466,7 +833,7 @@ Array [
     "key": "B",
     "nextSibling": "G",
     "parent": null,
-    "prevSibling": "key6",
+    "prevSibling": "key8",
     "text": "",
     "type": "unstyled",
   },
@@ -869,7 +1236,7 @@ Array [
     "characterList": Array [],
     "children": Array [
       "D",
-      "key11",
+      "key13",
       "E",
     ],
     "data": Object {},
@@ -908,7 +1275,7 @@ Array [
     "data": Object {},
     "depth": 0,
     "key": "D",
-    "nextSibling": "key11",
+    "nextSibling": "key13",
     "parent": "C",
     "prevSibling": null,
     "text": "Delta",
@@ -919,7 +1286,7 @@ Array [
     "children": Array [],
     "data": Object {},
     "depth": 0,
-    "key": "key11",
+    "key": "key13",
     "nextSibling": "E",
     "parent": "C",
     "prevSibling": "D",
@@ -967,7 +1334,7 @@ Array [
     "key": "E",
     "nextSibling": null,
     "parent": "C",
-    "prevSibling": "key11",
+    "prevSibling": "key13",
     "text": "Elephant",
     "type": "unstyled",
   },
@@ -1069,7 +1436,7 @@ Array [
     "data": Object {},
     "depth": 0,
     "key": "A",
-    "nextSibling": "key10",
+    "nextSibling": "key12",
     "parent": null,
     "prevSibling": null,
     "text": "Alpha",
@@ -1080,7 +1447,7 @@ Array [
     "children": Array [],
     "data": Object {},
     "depth": 0,
-    "key": "key10",
+    "key": "key12",
     "nextSibling": "B",
     "parent": null,
     "prevSibling": "A",
@@ -1098,7 +1465,7 @@ Array [
     "key": "B",
     "nextSibling": "G",
     "parent": null,
-    "prevSibling": "key10",
+    "prevSibling": "key12",
     "text": "",
     "type": "unstyled",
   },
@@ -1503,7 +1870,7 @@ Array [
     "children": Array [
       "D",
       "E",
-      "key9",
+      "key11",
     ],
     "data": Object {},
     "depth": 0,
@@ -1566,7 +1933,7 @@ Array [
     "data": Object {},
     "depth": 0,
     "key": "E",
-    "nextSibling": "key9",
+    "nextSibling": "key11",
     "parent": "C",
     "prevSibling": "D",
     "text": "Ele",
@@ -1598,7 +1965,7 @@ Array [
     "children": Array [],
     "data": Object {},
     "depth": 0,
-    "key": "key9",
+    "key": "key11",
     "nextSibling": null,
     "parent": "C",
     "prevSibling": "E",
@@ -1695,7 +2062,7 @@ Array [
     "data": Object {},
     "depth": 0,
     "key": "A",
-    "nextSibling": "key8",
+    "nextSibling": "key10",
     "parent": null,
     "prevSibling": null,
     "text": "Alp",
@@ -1715,7 +2082,7 @@ Array [
     "children": Array [],
     "data": Object {},
     "depth": 0,
-    "key": "key8",
+    "key": "key10",
     "nextSibling": "B",
     "parent": null,
     "prevSibling": "A",
@@ -1733,7 +2100,7 @@ Array [
     "key": "B",
     "nextSibling": "G",
     "parent": null,
-    "prevSibling": "key8",
+    "prevSibling": "key10",
     "text": "",
     "type": "unstyled",
   },

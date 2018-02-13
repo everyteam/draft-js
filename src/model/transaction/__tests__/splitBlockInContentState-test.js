@@ -76,6 +76,14 @@ const treeContentState = contentState.set(
   BlockMapBuilder.createFromArray(contentBlockNodes),
 );
 
+const firstBlock = contentState.getFirstBlock();
+const alphaHeaderState = contentState.set(
+  'blockMap',
+  contentState
+    .getBlockMap()
+    .set(firstBlock.getKey(), firstBlock.set('type', 'header-one')),
+);
+
 const assertSplitBlockInContentState = (selection, content = contentState) => {
   expect(
     splitBlockInContentState(content, selection)
@@ -122,6 +130,18 @@ test('must split at the end of a block', () => {
       anchorOffset: SPLIT_OFFSET,
       focusOffset: SPLIT_OFFSET,
     }),
+  );
+});
+
+test('must respect header split rules (0 offset moves header down, >0 offset makes 2nd block unstyled', () => {
+  assertSplitBlockInContentState(selectionState, alphaHeaderState);
+
+  assertSplitBlockInContentState(
+    selectionState.merge({
+      anchorOffset: 2,
+      focusOffset: 2,
+    }),
+    alphaHeaderState,
   );
 });
 
