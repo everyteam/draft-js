@@ -11,22 +11,22 @@
  * @flow
  */
 
-"use strict";
+'use strict';
 
-import type DraftEditor from "DraftEditor.react";
+import type DraftEditor from 'DraftEditor.react';
 
-const DraftFeatureFlags = require("DraftFeatureFlags");
-var DraftModifier = require("DraftModifier");
-var DraftOffsetKey = require("DraftOffsetKey");
-var EditorState = require("EditorState");
-var UserAgent = require("UserAgent");
+var DraftModifier = require('DraftModifier');
+var DraftOffsetKey = require('DraftOffsetKey');
+var EditorState = require('EditorState');
+var UserAgent = require('UserAgent');
 
-var findAncestorOffsetKey = require("findAncestorOffsetKey");
-var nullthrows = require("nullthrows");
+var findAncestorOffsetKey = require('findAncestorOffsetKey');
+const gkx = require('gkx');
+var nullthrows = require('nullthrows');
 
-var isGecko = UserAgent.isEngine("Gecko");
+var isGecko = UserAgent.isEngine('Gecko');
 
-var DOUBLE_NEWLINE = "\n\n";
+var DOUBLE_NEWLINE = '\n\n';
 
 /**
  * This function is intended to handle spellcheck and autocorrect changes,
@@ -48,13 +48,13 @@ function editOnInput(editor: DraftEditor): void {
 
   var domSelection = global.getSelection();
 
-  var { anchorNode, isCollapsed } = domSelection;
+  var {anchorNode, isCollapsed} = domSelection;
   const isNotTextNode = anchorNode.nodeType !== Node.TEXT_NODE;
   const isNotTextOrElementNode =
     anchorNode.nodeType !== Node.TEXT_NODE &&
     anchorNode.nodeType !== Node.ELEMENT_NODE;
 
-  if (DraftFeatureFlags.draft_killswitch_allow_nontextnodes) {
+  if (gkx('draft_killswitch_allow_nontextnodes')) {
     if (isNotTextNode) {
       return;
     }
@@ -89,11 +89,11 @@ function editOnInput(editor: DraftEditor): void {
   var domText = anchorNode.textContent;
   var editorState = editor._latestEditorState;
   var offsetKey = nullthrows(findAncestorOffsetKey(anchorNode));
-  var { blockKey, decoratorKey, leafKey } = DraftOffsetKey.decode(offsetKey);
+  var {blockKey, decoratorKey, leafKey} = DraftOffsetKey.decode(offsetKey);
 
-  var { start, end } = editorState
+  var {start, end} = editorState
     .getBlockTree(blockKey)
-    .getIn([decoratorKey, "leaves", leafKey]);
+    .getIn([decoratorKey, 'leaves', leafKey]);
 
   var content = editorState.getCurrentContent();
   var block = content.getBlockForKey(blockKey);
@@ -122,7 +122,7 @@ function editOnInput(editor: DraftEditor): void {
   var targetRange = selection.merge({
     anchorOffset: start,
     focusOffset: end,
-    isBackward: false
+    isBackward: false,
   });
 
   const preservedEntities = block
@@ -131,8 +131,8 @@ function editOnInput(editor: DraftEditor): void {
       const entity = content.getEntity(k);
       if (
         entity &&
-        (entity.getMutability() === "MUTABLE" ||
-          entity.getMutability() === "MUTABLE_INTERIOR")
+        (entity.getMutability() === 'MUTABLE' ||
+          entity.getMutability() === 'MUTABLE_INTERIOR')
       ) {
         return k;
       }
@@ -145,14 +145,14 @@ function editOnInput(editor: DraftEditor): void {
   // force using our internal undo method instead of falling through to the
   // native browser undo.
   const changeType =
-    preservedEntities.size > 0 ? "spellcheck-change" : "apply-entity";
+    preservedEntities.size > 0 ? 'spellcheck-change' : 'apply-entity';
 
   const newContent = DraftModifier.replaceText(
     content,
     targetRange,
     domText,
     block.getInlineStyleAt(start),
-    preservedEntities
+    preservedEntities,
   );
 
   var anchorOffset, focusOffset, startOffset, endOffset;
@@ -185,11 +185,11 @@ function editOnInput(editor: DraftEditor): void {
   // after the change, so we are not merging the selection.
   var contentWithAdjustedDOMSelection = newContent.merge({
     selectionBefore: content.getSelectionAfter(),
-    selectionAfter: selection.merge({ anchorOffset, focusOffset })
+    selectionAfter: selection.merge({anchorOffset, focusOffset}),
   });
 
   editor.update(
-    EditorState.push(editorState, contentWithAdjustedDOMSelection, changeType)
+    EditorState.push(editorState, contentWithAdjustedDOMSelection, changeType),
   );
 }
 

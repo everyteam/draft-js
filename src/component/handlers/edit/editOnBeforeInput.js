@@ -130,6 +130,7 @@ function editOnBeforeInput(
         EditorState.forceSelection(
           editorState,
           selection.merge({
+            anchorOffset: selectionEnd,
             focusOffset: selectionEnd,
           }),
         ),
