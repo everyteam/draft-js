@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule ContentBlockNode
  * @format
  * @flow
  *
@@ -113,7 +112,7 @@ class ContentBlockNode extends Record(defaultRecord) implements BlockNode {
   }
 
   getInlineStyleAt(offset: number): DraftInlineStyle {
-    var character = this.getCharacterList().get(offset);
+    const character = this.getCharacterList().get(offset);
     return character ? character.getStyle() : EMPTY_SET;
   }
 

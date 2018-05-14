@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule getCharacterRemovalRange
  * @format
  * @flow
  */
@@ -19,10 +18,10 @@ import type {EntityMap} from 'EntityMap';
 import type SelectionState from 'SelectionState';
 import type {DraftEntitySet} from 'DraftEntitySet';
 
-var DraftEntitySegments = require('DraftEntitySegments');
+const DraftEntitySegments = require('DraftEntitySegments');
 
-var getRangesForDraftEntity = require('getRangesForDraftEntity');
-var invariant = require('invariant');
+const getRangesForDraftEntity = require('getRangesForDraftEntity');
+const invariant = require('invariant');
 
 /**
  * Given a SelectionState and a removal direction, determine the entire range
@@ -40,14 +39,14 @@ function getCharacterRemovalRange(
   selectionState: SelectionState,
   direction: DraftRemovalDirection,
 ): SelectionState {
-  var start = selectionState.getStartOffset();
-  var end = selectionState.getEndOffset();
-  var startEntities = startBlock.getEntityAt(start);
-  var endEntities = endBlock.getEntityAt(end - 1);
+  const start = selectionState.getStartOffset();
+  const end = selectionState.getEndOffset();
+  const startEntities = startBlock.getEntityAt(start);
+  const endEntities = endBlock.getEntityAt(end - 1);
   if (startEntities.size == 0 && endEntities.size == 0) {
     return selectionState;
   }
-  var newSelectionState = selectionState;
+  let newSelectionState = selectionState;
   if (startEntities.size > 0 && startEntities.intersect(endEntities).size > 0) {
     newSelectionState = getEntityRemovalRange(
       entityMap,
@@ -123,8 +122,8 @@ function getEntityRemovalRange(
   isEntireSelectionWithinEntity: boolean,
   isEntityAtStart: boolean,
 ): SelectionState {
-  var start = selectionState.getStartOffset();
-  var end = selectionState.getEndOffset();
+  let start = selectionState.getStartOffset();
+  let end = selectionState.getEndOffset();
 
   entities.forEach(entityKey => {
     var entity = entityMap.get(entityKey);
@@ -139,7 +138,7 @@ function getEntityRemovalRange(
     const sideToConsider = isEntityAtStart ? start : end;
 
     // Find the entity range that overlaps with our removal range.
-    var entityRanges = getRangesForDraftEntity(block, entityKey).filter(
+    const entityRanges = getRangesForDraftEntity(block, entityKey).filter(
       range => sideToConsider <= range.end && sideToConsider >= range.start,
     );
 
@@ -173,7 +172,7 @@ function getEntityRemovalRange(
       }
     }
 
-    var removalRange = DraftEntitySegments.getRemovalRange(
+    const removalRange = DraftEntitySegments.getRemovalRange(
       start,
       end,
       block.getText().slice(entityRange.start, entityRange.end),
