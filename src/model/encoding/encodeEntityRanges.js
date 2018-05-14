@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule encodeEntityRanges
  * @format
  * @flow
  */
@@ -19,13 +18,12 @@ import type {BlockNodeRecord} from 'BlockNodeRecord';
 import type {EntityRange} from 'EntityRange';
 import type {List} from 'immutable';
 
-var UnicodeUtils = require('UnicodeUtils');
+const UnicodeUtils = require('UnicodeUtils');
 
-var findRangesImmutable = require('findRangesImmutable');
+const findRangesImmutable = require('findRangesImmutable');
 
-var areEqual = (a, b) => a === b;
-var isTruthy = a => !!a;
-var EMPTY_ARRAY = [];
+const areEqual = (a, b) => a === b;
+const isTruthy = a => !!a;
 
 /**
  * Helper function for getting encoded entities for each entity. Convert
@@ -36,10 +34,10 @@ function getEncodedEntitiesForKey(
   entities: List<DraftEntitySet>,
   entityKey: string,
 ): Array<EntityRange> {
-  var ranges = [];
+  const ranges = [];
 
   // Obtain an array with ranges for only the specified key.
-  var filteredInlines = entities.map(e => e.has(entityKey)).toList();
+  const filteredInlines = entities.map(e => e.has(entityKey)).toList();
 
   findRangesImmutable(
     filteredInlines,
@@ -47,7 +45,7 @@ function getEncodedEntitiesForKey(
     // We only want to keep ranges with nonzero entity values.
     isTruthy,
     (start, end) => {
-      var text = block.getText();
+      const text = block.getText();
       ranges.push({
         offset: UnicodeUtils.strlen(text.slice(0, start)),
         length: UnicodeUtils.strlen(text.slice(start, end)),
@@ -74,7 +72,7 @@ function encodeEntityRanges(block: ContentBlock): Array<EntityRange> {
     .toSet()
     .map(key => getEncodedEntitiesForKey(block, entities, key));
 
-  return Array.prototype.concat.apply(EMPTY_ARRAY, ranges.toJS());
+  return Array.prototype.concat.apply([], ranges.toJS());
 }
 
 module.exports = encodeEntityRanges;

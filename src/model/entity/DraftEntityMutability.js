@@ -6,14 +6,13 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule DraftEntityMutability
  * @format
- * @flow
+ * @flow strict-local
  */
 
-"use strict";
+'use strict';
 
-var ComposedEntityMutability = require("ComposedEntityMutability");
+const ComposedEntityMutability = require('ComposedEntityMutability');
 
 /**
  * An enum representing the possible "mutability" options for an entity.
@@ -26,14 +25,14 @@ var ComposedEntityMutability = require("ComposedEntityMutability");
  *   relationship. For instance, the text and URI for a link may be completely
  *   different. The user is allowed to edit the text as needed, and the entity
  *   is preserved and applied to any characters added within the range.
- * 
+ *
  * `MUTABLE_INTERIOR`:
  *   The interior of the text range can be modified freely. The left and right edges
  *   of the range are locked, so if you type there, the entity will not carry over.
- * 
+ *
  *   Note: This overrides various rules about the start and end of blocks being entity breaks, and will
  *   cause entities to continue across blocks.
- * 
+ *
  *   A good example would be linked text in a document or an inline comment that spans multiple lines.
  *
  * `IMMUTABLE`:

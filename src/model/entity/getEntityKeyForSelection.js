@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule getEntityKeyForSelection
  * @format
  * @flow
  */
@@ -47,7 +46,7 @@ function getEntityKeyForSelection(
       getMutableKeys = false;
     }
 
-    blockOffset = blockOffset - 1;
+    blockOffset -= 1;
   } else {
     if (blockOffset === block.getLength()) {
       getMutableKeys = false;
@@ -71,14 +70,14 @@ function getEntityKeyForSelection(
   }
 
   // now find potential MUTABLE_INTERIOR keys.
-  var mutableInteriorKeys = filterKeys(
+  let mutableInteriorKeys = filterKeys(
     contentState.getEntityMap(),
     block.getEntityAt(blockOffset),
     'MUTABLE_INTERIOR',
   );
 
   if (mutableInteriorKeys.size > 0) {
-    blockOffset = blockOffset + 1;
+    blockOffset += 1;
     if (blockOffset >= block.getLength()) {
       block = contentState.getBlockAfter(block.getKey());
       blockOffset = 0;
@@ -114,7 +113,7 @@ function filterKeys(
   if (entityKeys && entityKeys.size > 0) {
     var filteredKeys = entityKeys
       .map(key => {
-        var entity = entityMap.get(key);
+        const entity = entityMap.get(key);
         return entity.getMutability() === mutabilityType ? key : null;
       })
       .filter(x => x);
