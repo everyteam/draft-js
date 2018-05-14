@@ -12,10 +12,10 @@
 
 'use strict';
 
-import type {Node} from 'react';
+const React = require('React');
 
 export type DraftBlockRenderConfig = {
   element: string,
-  wrapper?: Node,
+  wrapper?: React.Node,
   aliasedElements?: Array<string>,
 };
